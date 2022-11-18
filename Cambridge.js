@@ -58,7 +58,7 @@ class encn_Cambridge {
             if (readings) {
                 let reading_uk = T(readings[0]);
                 let reading_us = T(readings[1]);
-                reading = (reading_uk || reading_us) ? `US[${reading_us}] ` : '';
+                reading = (reading_uk || reading_us) ? `[${reading_us}]` : '';
             }
             let pos = T(entry.querySelector('.posgram'));
             pos = pos ? `<span class='pos'>${pos}</span>` : '';
@@ -93,7 +93,7 @@ class encn_Cambridge {
                         let definition = '';
                         eng_tran = `<span class='eng_tran'>${eng_tran.replace(RegExp(expression, 'gi'),`<b>${expression}</b>`)}</span>`;
                         chn_tran = `<span class='chn_tran'>${chn_tran}</span>`;
-                        let tran = `<span class='tran'>${eng_tran}${chn_tran}</span>`;
+                        let tran = `<span class='tran'>${eng_tran}</span>`;
                         definition += phrasehead ? `${phrasehead}${tran}` : `${pos}${tran}`;
 
                         // make exmaple segement
