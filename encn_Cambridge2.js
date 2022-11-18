@@ -10,7 +10,7 @@ class encn_Cambridge {
         let locale = await api.locale();
         if (locale.indexOf('CN') != -1) return '剑桥英汉双解(简体)';
         if (locale.indexOf('TW') != -1) return '劍橋英漢雙解(簡體)';
-        return 'IDM21';
+        return 'DM21';
     }
 
     setOptions(options) {
@@ -125,7 +125,7 @@ class encn_Cambridge {
     }
 
     async findYoudao(word) {
-        if (!word) return [];
+        return [];
 
         let base = 'https://dict.youdao.com/w/';
         let url = base + encodeURIComponent(word);
