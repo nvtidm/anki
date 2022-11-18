@@ -8,8 +8,8 @@ class encn_Cambridge {
 
     async displayName() {
         let locale = await api.locale();
-        if (locale.indexOf('CN') != -1) return '剑桥英汉双解';
-        if (locale.indexOf('TW') != -1) return '劍橋英漢雙解';
+        if (locale.indexOf('CN') != -1) return '剑桥英汉双解(简体)';
+        if (locale.indexOf('TW') != -1) return '劍橋英漢雙解(簡體)';
         return 'Cambridge Dictionary';
     }
 
@@ -47,7 +47,7 @@ class encn_Cambridge {
             return [];
         }
 
-        let entries = doc.querySelectorAll('.cdo-dblclick-area .entry-body__el') || [];
+        let entries = doc.querySelectorAll('.pr .entry-body__el') || [];
         for (const entry of entries) {
             let definitions = [];
             let audios = [];
@@ -62,11 +62,11 @@ class encn_Cambridge {
             }
             let pos = T(entry.querySelector('.posgram'));
             pos = pos ? `<span class='pos'>${pos}</span>` : '';
-            audios[0] = entry.querySelector('.pos-header>.uk .audio_play_button');
-            audios[0] = audios[0] ? 'https://dictionary.cambridge.org' + audios[0].getAttribute('data-src-mp3') : '';
+            audios[0] = entry.querySelector(".uk.dpron-i source");
+            audios[0] = audios[0] ? 'https://dictionary.cambridge.org' + audios[0].getAttribute('src') : '';
             //audios[0] = audios[0].replace('https', 'http');
-            audios[1] = entry.querySelector('.pos-header>.us .audio_play_button');
-            audios[1] = audios[1] ? 'https://dictionary.cambridge.org' + audios[1].getAttribute('data-src-mp3') : '';
+            audios[1] = entry.querySelector(".us.dpron-i source");
+            audios[1] = audios[1] ? 'https://dictionary.cambridge.org' + audios[1].getAttribute('src') : '';
             //audios[1] = audios[1].replace('https', 'http');
 
             let sensbodys = entry.querySelectorAll('.sense-body') || [];
@@ -87,7 +87,7 @@ class encn_Cambridge {
 
                     // make definition segement
                     for (const defblock of defblocks) {
-                        let eng_tran = T(defblock.querySelector('.def-head .def'));
+                        let eng_tran = T(defblock.querySelector('.ddef_h .def'));
                         let chn_tran = T(defblock.querySelector('.def-body .trans'));
                         if (!eng_tran) continue;
                         let definition = '';
@@ -127,7 +127,7 @@ class encn_Cambridge {
     async findYoudao(word) {
         if (!word) return [];
 
-        let base = 'http://dict.youdao.com/w/';
+        let base = 'https://dict.youdao.com/w/';
         let url = base + encodeURIComponent(word);
         let doc = '';
         try {
@@ -159,8 +159,8 @@ class encn_Cambridge {
             }
 
             let audios = [];
-            audios[0] = `http://dict.youdao.com/dictvoice?audio=${encodeURIComponent(expression)}&type=1`;
-            audios[1] = `http://dict.youdao.com/dictvoice?audio=${encodeURIComponent(expression)}&type=2`;
+            audios[0] = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(expression)}&type=1`;
+            audios[1] = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(expression)}&type=2`;
 
             let definition = '<ul class="ec">';
             for (const defNode of defNodes){
