@@ -17,7 +17,26 @@ class krdict_Cambridge {
 
     async findTerm(word) {
         this.word = word;
-        let promises = 'Xin chao';
-        return promises;
+        let notes = [];
+        if (!word) return notes; // return empty notes
+
+        function T(node) {
+            if (!node)
+                return '';
+            else
+                return node.innerText.trim();
+        }
+
+        let base = 'https://dictionary.cambridge.org/search/english-chinese-simplified/direct/?q=';
+        let url = base + encodeURIComponent(word);
+        let doc = '';
+        try {
+            let data = await api.fetch(url);
+            let parser = new DOMParser();
+            doc = parser.parseFromString(data, 'text/html');
+        } catch (err) {
+            return [];
+        }
+        return doc;
     }
 }
