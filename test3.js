@@ -7,7 +7,7 @@ class krdict_Cambridge {
     }
 
     async displayName() {
-        return 'IDM Test';
+        return 'IDM Tst';
     }
 
     setOptions(options) {
@@ -29,7 +29,7 @@ class krdict_Cambridge {
 
         let base = 'https://dictionary.cambridge.org/search/english-chinese-simplified/direct/?q=';
         let url = base + encodeURIComponent(word);
-        let doc = '';
+        let doc = 'sa';
         try {
             let data = await api.fetch(url);
             let parser = new DOMParser();
