@@ -36,7 +36,7 @@ class encn_Cambridge {
                 return node.innerText.trim();
         }
 
-        let base = 'https://dictionary.cambridge.org/search/english-korean/direct/?q=';
+        let base = 'https://dictionary.cambridge.org/search/english-vietnamese/direct/?q=';
         let url = base + encodeURIComponent(word);
         let doc = '';
         try {
