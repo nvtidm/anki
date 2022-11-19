@@ -10,7 +10,7 @@ class encn_Cambridge {
         let locale = await api.locale();
         if (locale.indexOf('CN') != -1) return '剑桥英汉双解(简体)';
         if (locale.indexOf('TW') != -1) return '劍橋英漢雙解(簡體)';
-        return 'IDM Cambridge';
+        return 'Cambridge Dictionaaaary (SC)';
     }
 
     setOptions(options) {
@@ -36,7 +36,7 @@ class encn_Cambridge {
                 return node.innerText.trim();
         }
 
-        let base = 'https://dictionary.cambridge.org/search/english-chinese-simplified/direct/?q=';
+        let base = 'https://dictionary.cambridge.org/search/english-korean-simplified/direct/?q=';
         let url = base + encodeURIComponent(word);
         let doc = '';
         try {
@@ -58,7 +58,7 @@ class encn_Cambridge {
             if (readings) {
                 let reading_uk = T(readings[0]);
                 let reading_us = T(readings[1]);
-                reading = (reading_uk || reading_us) ? `[${reading_us}]` : '';
+                reading = (reading_uk || reading_us) ? `UK[${reading_uk}] US[${reading_us}] ` : '';
             }
             let pos = T(entry.querySelector('.posgram'));
             pos = pos ? `<span class='pos'>${pos}</span>` : '';
@@ -69,21 +69,6 @@ class encn_Cambridge {
             audios[1] = audios[1] ? 'https://dictionary.cambridge.org' + audios[1].getAttribute('src') : '';
             //audios[1] = audios[1].replace('https', 'http');
 
-            
-            
-            
-        base = 'https://dictionary.cambridge.org/search/english-korean/direct/?q=';
-        let url = base + encodeURIComponent(word);
-        let doc = '';
-        try {
-            data = await api.fetch(url);
-            parser = new DOMParser();
-            doc = parser.parseFromString(data, 'text/html');
-        } catch (err) {
-            return [];
-        }            
-            
-            
             let sensbodys = entry.querySelectorAll('.sense-body') || [];
             for (const sensbody of sensbodys) {
                 let sensblocks = sensbody.childNodes || [];
@@ -108,7 +93,7 @@ class encn_Cambridge {
                         let definition = '';
                         eng_tran = `<span class='eng_tran'>${eng_tran.replace(RegExp(expression, 'gi'),`<b>${expression}</b>`)}</span>`;
                         chn_tran = `<span class='chn_tran'>${chn_tran}</span>`;
-                        let tran = `<span class='tran'>${eng_tran}</span>`;
+                        let tran = `<span class='tran'>${eng_tran}${chn_tran}</span>`;
                         definition += phrasehead ? `${phrasehead}${tran}` : `${pos}${tran}`;
 
                         // make exmaple segement
@@ -119,7 +104,7 @@ class encn_Cambridge {
                                 if (index > this.maxexample - 1) break; // to control only 2 example sentence.
                                 let eng_examp = T(examp.querySelector('.eg'));
                                 let chn_examp = T(examp.querySelector('.trans'));
-                                definition += `<li class='sent'><span class='eng_sent'>${eng_examp.replace(RegExp(expression, 'gi'),`<b>${expression}</b>`)}</span></li>`;
+                                definition += `<li class='sent'><span class='eng_sent'>${eng_examp.replace(RegExp(expression, 'gi'),`<b>${expression}</b>`)}</span><span class='chn_sent'>${chn_examp}</span></li>`;
                             }
                             definition += '</ul>';
                         }
@@ -140,7 +125,7 @@ class encn_Cambridge {
     }
 
     async findYoudao(word) {
-        return [];
+        if (!word) return [];
 
         let base = 'https://dict.youdao.com/w/';
         let url = base + encodeURIComponent(word);
