@@ -36,7 +36,7 @@ class encn_Cambridge {
                 return node.innerText.trim();
         }
 
-        let base = 'https://dictionary.cambridge.org/search/english-korean/direct/?q=';
+        let base = 'https://dictionary.cambridge.org/search/english-chinese-simplified/direct/?q=';
         let url = base + encodeURIComponent(word);
         let doc = '';
         try {
@@ -69,6 +69,21 @@ class encn_Cambridge {
             audios[1] = audios[1] ? 'https://dictionary.cambridge.org' + audios[1].getAttribute('src') : '';
             //audios[1] = audios[1].replace('https', 'http');
 
+            
+            
+            
+        base = 'https://dictionary.cambridge.org/search/english-korean/direct/?q=';
+        let url = base + encodeURIComponent(word);
+        let doc = '';
+        try {
+            data = await api.fetch(url);
+            parser = new DOMParser();
+            doc = parser.parseFromString(data, 'text/html');
+        } catch (err) {
+            return [];
+        }            
+            
+            
             let sensbodys = entry.querySelectorAll('.sense-body') || [];
             for (const sensbody of sensbodys) {
                 let sensblocks = sensbody.childNodes || [];
