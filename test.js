@@ -18,7 +18,6 @@ class krdict_Cambridge {
     async findTerm(word) {
         this.word = word;
         let promises = 'Xin chao';
-        let results = await Promise.all(promises);
-        return [].concat(...results).filter(x => x);
+        return promises;
     }
 }
