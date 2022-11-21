@@ -36,7 +36,7 @@ class en_Cambridge {
                 return node.innerText.trim();
         }
 
-        let base = 'https://dictionary.cambridge.org/search/english-chinese-simplified/direct/?q=';
+        let base = 'https://dictionary.cambridge.org/search/english-korean/direct/?q=';
         let url = base + encodeURIComponent(word);
         let doc = '';
         try {
