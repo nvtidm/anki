@@ -19,15 +19,23 @@ class enen_Vocabulary{
     async findTerm(word) {
         this.word = word;
         let list = [word]
-        let promises = list.map((item) => this.findCollins(item));
-        let results = await Promise.all(promises);
-        return [].concat(...results).filter(x => x);
+                const base = 'https://www.vocabulary.com/dictionary/';
+        const url = base + encodeURIComponent(word);
+        let doc = '';
+        try {
+            let data = await api.fetch(url);
+            let parser = new DOMParser();
+            doc = parser.parseFromString(data, "text/html");
+        } catch (err) {
+            return null;
+        }
+        return doc;
     }
 
     async findCollins(word) {
         const maxexample = this.maxexample;
         let notes = [];
-              let notessa = "in chào IDM";
+        let notessa = 'in chào IDM';
 
         if (!word) return notes;
         let expression = word;
@@ -107,7 +115,7 @@ class enen_Vocabulary{
             audios
         });
 
-        return notes;
+        return notessa;
     }
 
     renderCSS() {
