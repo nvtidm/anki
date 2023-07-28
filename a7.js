@@ -7,7 +7,7 @@ class enen_Vocabulary{
     }
 
     async displayName() {
-        return 'IDM5';
+        return 'IDM7';
     }
 
 
@@ -18,17 +18,7 @@ class enen_Vocabulary{
 
     async findTerm(word) {
         this.word = word;
-        let list = [word]
-                const base = 'https://www.vocabulary.com/dictionary/';
-        const url = base + encodeURIComponent(word);
-        let doc = '';
-        try {
-            let data = await api.fetch(url);
-            let parser = new DOMParser();
-            doc = parser.parseFromString(data, "text/html");
-        } catch (err) {
-            return null;
-        }
+        let doc = ' hello';
         return doc;
     }
 
