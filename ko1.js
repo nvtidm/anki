@@ -34,7 +34,7 @@ class enen_Vocabulary{
         audios[0] = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(expression)}&type=2`;
         audios[1] = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(expression)}&type=1`;
         const base = 'https://www.vocabulary.com/dictionary/';
-        const url = base + encodeURIComponent(word);
+        const url = 'https://krdict.korean.go.kr/api/view?key=659B7B68D1DB3D12994C83DEF2B91586&type_search=view&method=TARGET_CODE&part=word&q=14025&translated=y&trans_lang=7';
         let doc = '';
         try {
             let data = await api.fetch(url);
@@ -55,16 +55,16 @@ class enen_Vocabulary{
 
 
         let extrainfo = '';
-        let pos = doc.querySelector('div.pos-icon').innerText || '';
+        let pos = doc.querySelector('pos').innerText || '';
         pos = pos ? `<span class="pos">${pos}</span>` : '';
 
-        let desc_short = doc.querySelector('p.short') || '';
-        let desc_long = doc.querySelector('p.long') || '';
+        let desc_short = doc.querySelector('word') || '';
+        let desc_long = doc.querySelector('definition') || '';
         desc_short = desc_short ? `<span class="eng_sent">${desc_short.innerText}</span>` : '';
         desc_long = desc_long ? `<span class="eng_sent desc_long">${desc_long.innerText}</span>` : '';
         let definition = `${pos}<span class="tran">${desc_short}<br>${desc_long}</span>`;
         let definitions = [definition];
-        const contents = doc.querySelectorAll('div.word-definitions > ol > li') || [];
+        const contents = doc.querySelectorAll('example') || [];
         for (const content of contents) {
             let innerText = content.children[0].innerText;
             innerText = innerText.trim();
