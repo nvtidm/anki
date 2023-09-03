@@ -7,7 +7,7 @@ class enen_Vocabulary{
     }
 
     async displayName() {
-        return 'ko-enVocabulary';
+        return 'kdo-enVocabulary';
     }
 
 
@@ -17,11 +17,7 @@ class enen_Vocabulary{
     }
 
     async findTerm(word) {
-        this.word = word;
-        let list = [word]
-        let promises = list.map((item) => this.findCollins(item));
-        let results = await Promise.all(promises);
-        return [].concat(...results).filter(x => x);
+        return new Promise(('resolve', 'reject');
     }
 
     async findCollins(word) {
